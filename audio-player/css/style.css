@@ -1,0 +1,39 @@
+*{
+	border: 1px black solid;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+}
+
+.wrapper{
+	width: 600px;
+	height: 600px;
+}
+
+.player{
+	display: flex;
+	flex-direction: column;
+}
+
+
+.control-block{
+	display: flex;
+	justify-content: space-around;
+}
+
+.play-button, .pause-button{
+	width: 32px;
+	height: 32px;
+}
+
+.next-prev-button-block{
+	display: flex;
+	flex-direction: column;
+}
+
+.back-button, .next-button{
+	width: 24px;
+	height: 24px;
+}
