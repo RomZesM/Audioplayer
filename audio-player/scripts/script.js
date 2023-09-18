@@ -4,11 +4,16 @@ const playbutton = document.querySelector('.play-button');
 const pausebutton = document.querySelector('.pause-button');
 const previousButton = document.querySelector(".back-button");
 const nextButton = document.querySelector(".next-button");
-const tracklist = ["<source src=\"/assets/audio/beyonce.mp3\" type=\"audio/mp3\">",
-				"<source src=\"/assets/audio/dontstartnow.mp3\" type=\"audio/mp3\">"]
-
 let isPlaying = false;
 let currentTrackNumber = 0;
+
+
+//res
+const tracklist = ["<source src=\"/assets/audio/beyonce.mp3\" type=\"audio/mp3\">",
+				"<source src=\"/assets/audio/dontstartnow.mp3\" type=\"audio/mp3\">"]
+const covers = ["<img src=\"assets/img/lemonade.png\" alt=\"image for song2\">",
+					"<img src=\"assets/img/dontstartnow.png\" alt=\"image for song\">"];
+const songsTitle = ["Beyonce=Don't Hurt Yourself","Dua Lipa=Don't Start Now"]
 
 //putFirsttrackAfterLoading
 putTrackIntoPlayer(0);
@@ -105,4 +110,16 @@ function getCurrentTimeOfSong(time){
 
 function putTrackIntoPlayer(trackNumber){
 	player.innerHTML = tracklist[trackNumber];
+	showCover(trackNumber);
+	showTitle(trackNumber);
+}
+
+function showCover(trackNumber){
+	document.querySelector(".song-cover").innerHTML = covers[trackNumber];
+}
+
+function showTitle(trackNumber){
+	let artistAndTitle = songsTitle[trackNumber].split("=");
+	document.querySelector(".artist").innerHTML = artistAndTitle[0];
+	document.querySelector(".title").innerHTML = artistAndTitle[1];
 }

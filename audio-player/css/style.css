@@ -17,6 +17,12 @@ body {
 	flex-direction: column;
 }
 
+.song-cover{
+	display: flex;
+	justify-content: center;
+	width: 43vw;
+	height: 26vh;
+}
 
 .control-block{
 	display: flex;
