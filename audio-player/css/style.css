@@ -23,10 +23,23 @@ body {
 	justify-content: space-around;
 }
 
-.play-button, .pause-button{
+.play-button{
 	width: 32px;
 	height: 32px;
 }
+.play-button-hide{
+	display: none;
+}
+
+.pause-button{
+	width: 32px;
+	height: 32px;
+	display: none;
+}
+.pause-button-visible{
+	display: block;
+}
+
 
 .next-prev-button-block{
 	display: flex;
@@ -36,4 +49,9 @@ body {
 .back-button, .next-button{
 	width: 24px;
 	height: 24px;
+}
+
+.player-monitor{
+	display: flex;
+	justify-content: space-around;
 }
