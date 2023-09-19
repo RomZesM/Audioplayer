@@ -20,7 +20,7 @@ body {
 .song-cover{
 	display: flex;
 	justify-content: center;
-	width: 43vw;
+	width: 100%;
 	height: 26vh;
 }
 
@@ -60,4 +60,19 @@ body {
 .player-monitor{
 	display: flex;
 	justify-content: space-around;
+}
+
+.tape_counter{
+	width: auto;
+	height: 15px;
+	
+	position: relative;
+}
+
+.marker{
+	width: 15px;
+	height: 15px;
+	background-color: aquamarine;
+	position: relative;
+	left: 1px;
 }

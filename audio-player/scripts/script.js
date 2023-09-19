@@ -7,6 +7,9 @@ const nextButton = document.querySelector(".next-button");
 let isPlaying = false;
 let currentTrackNumber = 0;
 
+let currentMarkerPosition = 0;
+let currentTrackStep = 0;
+let lastframe = 0;
 
 //res
 const tracklist = ["<source src=\"/assets/audio/beyonce.mp3\" type=\"audio/mp3\">",
@@ -48,7 +51,7 @@ nextButton.addEventListener('click', (event)=>{
 
 
 previousButton.addEventListener('click', (event)=>{
-	console.log("enter");
+	
 	if(currentTrackNumber > 0){
 		putTrackIntoPlayer(--currentTrackNumber)
 		player.load();
@@ -69,15 +72,23 @@ player.addEventListener("timeupdate", (e)=>{
 	document.querySelector(".current_track_time").innerHTML = getCurrentTimeOfSong(player.currentTime);
 	//add current track duration into player monitor
 	document.querySelector(".track-duration").innerHTML = getCurrentTimeOfSong(player.duration);
+	
+	moveProgressMarker();
 })
 //reload track data when we have new track
-player.addEventListener("loadstart", (e)=>{
-	console.log("load new track	")
+player.addEventListener("loadstart", (e)=>{ //Fired when the browser has started to load the resource.
 	
 	if(isPlaying){
 		startPlay();
 	}
 	
+});
+ //	The first frame of the media has finished loading.
+player.addEventListener("loadeddata", (e)=>{
+	currentTrackStep = player.duration * 4; 
+	currentMarkerPosition = 0;
+	lastframe = 0;
+	console.log("song duration after load", player.duration);
 });
 
 
@@ -96,7 +107,6 @@ function pausePlay(){
 
 function getCurrentTimeOfSong(time){
 	if(isNaN(time)){
-		console.log("bugagag");
 		return "00 : 00"
 	}
 	
@@ -123,3 +133,19 @@ function showTitle(trackNumber){
 	document.querySelector(".artist").innerHTML = artistAndTitle[0];
 	document.querySelector(".title").innerHTML = artistAndTitle[1];
 }
+
+
+
+function moveProgressMarker(){
+	let barWidth = document.querySelector(".tape_counter").offsetWidth - 19
+	const marker = document.querySelector(".marker");
+
+	let stepInPercent = (player.currentTime - lastframe) * 100 / player.duration;
+	lastframe = player.currentTime;
+
+	currentMarkerPosition += barWidth * stepInPercent / 100;
+	
+	console.log(stepInPercent);
+
+	marker.style.left = currentMarkerPosition + "px";
+};
