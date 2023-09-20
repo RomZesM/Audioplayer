@@ -4,6 +4,8 @@ const playbutton = document.querySelector('.play-button');
 const pausebutton = document.querySelector('.pause-button');
 const previousButton = document.querySelector(".back-button");
 const nextButton = document.querySelector(".next-button");
+const tape_counter = document.querySelector(".tape_counter");
+
 let isPlaying = false;
 let currentTrackNumber = 0;
 
@@ -137,7 +139,7 @@ function showTitle(trackNumber){
 
 
 function moveProgressMarker(){
-	let barWidth = document.querySelector(".tape_counter").offsetWidth - 19
+	let barWidth = tape_counter.offsetWidth - 19
 	const marker = document.querySelector(".marker");
 
 	let stepInPercent = (player.currentTime - lastframe) * 100 / player.duration;
@@ -146,6 +148,15 @@ function moveProgressMarker(){
 	currentMarkerPosition += barWidth * stepInPercent / 100;
 	
 	console.log(stepInPercent);
-
 	marker.style.left = currentMarkerPosition + "px";
 };
+//skip arpund track
+tape_counter.addEventListener('click', (event)=> {
+	let barWidth = (window.getComputedStyle(tape_counter).width);
+	let clickX = event.offsetX;
+	let timeToSeek = clickX / parseInt(barWidth) * player.duration;
+	player.currentTime = timeToSeek;
+	
+})
+
+//window.getComputedStyle(tape_counter).width;
