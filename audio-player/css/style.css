@@ -56,6 +56,19 @@ body {
 	width: 24px;
 	height: 24px;
 }
+.monitor_volume-block{
+	display: flex;
+	justify-content: space-around;
+}
+.volume-bar{
+	width: 200px;
+	height: 22px;
+}
+.volume-slider{
+	background-color: aquamarine;
+	height: 22px;
+	width: 75%;
+}
 
 .player-monitor{
 	display: flex;

@@ -5,7 +5,11 @@ const pausebutton = document.querySelector('.pause-button');
 const previousButton = document.querySelector(".back-button");
 const nextButton = document.querySelector(".next-button");
 const tape_counter = document.querySelector(".tape_counter");
+const volume_bar = document.querySelector('.volume-bar');
+const volume_slider = document.querySelector('.volume-slider');
 
+
+player.volume = 0.75;
 let isPlaying = false;
 let currentTrackNumber = 0;
 
@@ -141,22 +145,33 @@ function showTitle(trackNumber){
 function moveProgressMarker(){
 	let barWidth = tape_counter.offsetWidth - 19
 	const marker = document.querySelector(".marker");
-
+	//count time between frames (depend on 'timeupdate' event)
 	let stepInPercent = (player.currentTime - lastframe) * 100 / player.duration;
 	lastframe = player.currentTime;
 
 	currentMarkerPosition += barWidth * stepInPercent / 100;
-	
-	console.log(stepInPercent);
+
 	marker.style.left = currentMarkerPosition + "px";
 };
-//skip arpund track
+//skip around track
 tape_counter.addEventListener('click', (event)=> {
 	let barWidth = (window.getComputedStyle(tape_counter).width);
-	let clickX = event.offsetX;
-	let timeToSeek = clickX / parseInt(barWidth) * player.duration;
+	let clickX = event.offsetX; //get cirrent click coordinate
+	let timeToSeek = clickX / parseInt(barWidth) * player.duration; 
 	player.currentTime = timeToSeek;
 	
 })
 
-//window.getComputedStyle(tape_counter).width;
+//volume regulator
+volume_bar.addEventListener('click', (event)=>{
+	console.log(player.volume);
+	let barWidth = (window.getComputedStyle(volume_bar).width);
+	let clickX = event.offsetX;
+	let newVolume = clickX / parseInt(barWidth);
+	
+	player.volume = newVolume;
+	//change color depending on current color
+	volume_slider.style.width = newVolume * 100 + '%';
+	
+	console.log(player.volume);
+});
