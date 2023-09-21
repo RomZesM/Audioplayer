@@ -8,6 +8,7 @@ const tape_counter = document.querySelector(".tape_counter");
 const volume_bar = document.querySelector('.volume-bar');
 const volume_slider = document.querySelector('.volume-slider');
 const playlist = document.querySelector('.playlist');
+const songcover = document.querySelector(".song-cover");
 
 
 player.volume = 0.75;
@@ -19,11 +20,17 @@ let currentTrackStep = 0;
 let lastframe = 0;
 
 //res
-const tracklist = ["<source src=\"/assets/audio/beyonce.mp3\" type=\"audio/mp3\">",
-				"<source src=\"/assets/audio/dontstartnow.mp3\" type=\"audio/mp3\">"]
-const covers = ["<img src=\"assets/img/lemonade.png\" alt=\"image for song2\">",
-					"<img src=\"assets/img/dontstartnow.png\" alt=\"image for song\">"];
-const songsTitle = ["Beyonce=Don't Hurt Yourself-somesomesomesomesoem","Dua Lipa=Don't Start Now"]
+const tracklist = ["<source src=\"/assets/audio/01-prekrasnoe-daleko.ogg\" type=\"audio/ogg\">",
+				"<source src=\"/assets/audio/02-v-poslednuu-osen.ogg\" type=\"audio/ogg\">",
+				"<source src=\"/assets/audio/03-vera.ogg\" type=\"audio/ogg\">",
+				"<source src=\"/assets/audio/04-vechno-molodoy.ogg\" type=\"audio/ogg\">"]
+
+const covers = ["<img src=\"assets/img/01-prekrasnoe.jpg\" alt=\"image for song\">",
+				"<img src=\"assets/img/02-osen.jpg\" alt=\"image for song\">",
+				"<img src=\"assets/img/03-vera.jpg\" alt=\"image for song\">",
+				"<img src=\"assets/img/04-molod.jpg\" alt=\"image for song\">"];
+
+const songsTitle = ["АйЛетов=Прекрасное далеко","АйЛетов, АйЦой, АйГоршенев=В последнюю осень","АйЛетов=Салют Вера", "АйЦой=Вечно молодой"]
 
 //putFirsttrackAfterLoading
 putTrackIntoPlayer(0);
@@ -133,7 +140,13 @@ function putTrackIntoPlayer(trackNumber){
 }
 
 function showCover(trackNumber){
-	document.querySelector(".song-cover").innerHTML = covers[trackNumber];
+	//background-image: url(/assets/img/01-prekrasnoe.jpg);
+
+	//console.log(`url(/${covers[trackNumber].split("\"")[1]})`);
+	document.body.style.backgroundImage = `url(/${covers[trackNumber].split("\"")[1]})`
+	
+	songcover.innerHTML = covers[trackNumber];
+	
 }
 
 function showTitle(trackNumber){
@@ -149,7 +162,7 @@ function showTitle(trackNumber){
 		artistName.classList.remove("text-animated");
 	}
 	songTitle.innerHTML = artistAndTitle[1];
-	console.log("leng", artistAndTitle[1].length);
+	console.log("leng", artistAndTitle[1].length, "title", artistAndTitle);
 	if(artistAndTitle[1].length > 20){
 		songTitle.classList.add("text-animated");
 	}	
