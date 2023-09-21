@@ -29,6 +29,7 @@ body {
 
 .volume-bar{
 	border: 1px solid rosybrown;
+	cursor: pointer;
 	width: 22px;
 	height: 26vh;
 	margin-right: 20px;
@@ -39,6 +40,7 @@ body {
 	background-color: aquamarine;
 	height: 75%;
 	width: 22px;
+	
 	pointer-events: none;
 }
 
@@ -53,7 +55,10 @@ body {
 	justify-content: center;
 }
 
+
+
 .play-button{
+	cursor: pointer;
 	width: 64px;
 	height: 64px;
 }
@@ -62,6 +67,7 @@ body {
 }
 
 .pause-button{
+	cursor: pointer;
 	width: 64px;
 	height: 64px;
 	display: none;
@@ -70,6 +76,29 @@ body {
 	display: block;
 }
 
+.song-info{
+	width:200px;
+	overflow: hidden;
+}
+
+.text-animated{
+	white-space: nowrap;
+	transform: translateX(100%);
+	animation: my-animation 15s linear infinite;
+}
+
+@keyframes my-animation {
+	from {
+	  -moz-transform: translateX(100%);
+	  -webkit-transform: translateX(100%);
+	  transform: translateX(100%);
+	}
+	to {
+	  -moz-transform: translateX(-100%);
+	  -webkit-transform: translateX(-100%);
+	  transform: translateX(-100%);
+	}
+}
 
 .next-prev-button-block{
 	display: flex;
@@ -82,6 +111,7 @@ body {
 }
 
 .back-button, .next-button{
+	cursor: pointer;
 	width: 36px;
 	height: 36px;
 }
@@ -113,4 +143,8 @@ body {
 	background-color: aquamarine;
 	position: relative;
 	left: 1px;
+}
+
+.playlist{
+	cursor: pointer;
 }

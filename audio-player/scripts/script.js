@@ -23,7 +23,7 @@ const tracklist = ["<source src=\"/assets/audio/beyonce.mp3\" type=\"audio/mp3\"
 				"<source src=\"/assets/audio/dontstartnow.mp3\" type=\"audio/mp3\">"]
 const covers = ["<img src=\"assets/img/lemonade.png\" alt=\"image for song2\">",
 					"<img src=\"assets/img/dontstartnow.png\" alt=\"image for song\">"];
-const songsTitle = ["Beyonce=Don't Hurt Yourself","Dua Lipa=Don't Start Now"]
+const songsTitle = ["Beyonce=Don't Hurt Yourself-somesomesomesomesoem","Dua Lipa=Don't Start Now"]
 
 //putFirsttrackAfterLoading
 putTrackIntoPlayer(0);
@@ -137,9 +137,26 @@ function showCover(trackNumber){
 }
 
 function showTitle(trackNumber){
+	const artistName = document.querySelector(".artist");
+	const songTitle = document.querySelector(".title");
+	
 	let artistAndTitle = songsTitle[trackNumber].split("=");
-	document.querySelector(".artist").innerHTML = artistAndTitle[0];
-	document.querySelector(".title").innerHTML = artistAndTitle[1];
+	artistName.innerHTML = artistAndTitle[0];
+	if(artistAndTitle[0].length > 20){
+		artistName.classList.add("text-animated");
+	}	
+	else{
+		artistName.classList.remove("text-animated");
+	}
+	songTitle.innerHTML = artistAndTitle[1];
+	console.log("leng", artistAndTitle[1].length);
+	if(artistAndTitle[1].length > 20){
+		songTitle.classList.add("text-animated");
+	}	
+	else{
+		songTitle.classList.remove("text-animated");
+	}
+	
 }
 
 
@@ -183,9 +200,10 @@ volume_bar.addEventListener('click', (event)=>{
 function playlistInit(){
 	let generatedList = '';
 	for (let i = 0; i < songsTitle.length; i++) {
-		const element = songsTitle[i];
+		const element = songsTitle[i].split('=')
+		let songName = element[0] + ' - ' + element[1];
 		
-		let li = `<li class="song-${i}">${element}</li>`
+		let li = `<li class="song-${i}">${songName}</li>`
 		
 		generatedList = generatedList.concat(' ', li);
 	}
