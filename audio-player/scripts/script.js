@@ -7,6 +7,7 @@ const nextButton = document.querySelector(".next-button");
 const tape_counter = document.querySelector(".tape_counter");
 const volume_bar = document.querySelector('.volume-bar');
 const volume_slider = document.querySelector('.volume-slider');
+const playlist = document.querySelector('.playlist');
 
 
 player.volume = 0.75;
@@ -26,6 +27,7 @@ const songsTitle = ["Beyonce=Don't Hurt Yourself","Dua Lipa=Don't Start Now"]
 
 //putFirsttrackAfterLoading
 putTrackIntoPlayer(0);
+playlistInit();
 
 
 startPauseButton.addEventListener('click', (e)=>{
@@ -94,20 +96,21 @@ player.addEventListener("loadeddata", (e)=>{
 	currentTrackStep = player.duration * 4; 
 	currentMarkerPosition = 0;
 	lastframe = 0;
-	console.log("song duration after load", player.duration);
+	
 });
 
 
 function startPlay(){
 		isPlaying = true;
-		playbutton.classList.toggle('play-button-hide');
-		pausebutton.classList.toggle('pause-button-visible');
+		console.log("here", isPlaying);
+		playbutton.classList.add('play-button-hide');
+		pausebutton.classList.add('pause-button-visible');
 		player.play();
 }
 function pausePlay(){
 		isPlaying = false;
-		playbutton.classList.toggle('play-button-hide');
-		pausebutton.classList.toggle('pause-button-visible');		
+		playbutton.classList.remove('play-button-hide');
+		pausebutton.classList.remove('pause-button-visible');		
 		player.pause();
 }
 
@@ -175,3 +178,30 @@ volume_bar.addEventListener('click', (event)=>{
 	
 	console.log(player.volume);
 });
+
+//choose track from playlist
+function playlistInit(){
+	let generatedList = '';
+	for (let i = 0; i < songsTitle.length; i++) {
+		const element = songsTitle[i];
+		
+		let li = `<li class="song-${i}">${element}</li>`
+		
+		generatedList = generatedList.concat(' ', li);
+	}
+	playlist.innerHTML = generatedList;
+	//add event listenert for every song
+	const songlist = playlist.querySelectorAll('li');
+	for (let i = 0; i < songlist.length; i++) {
+		const element = songlist[i];
+		element.addEventListener("click", (event)=>{
+			let songNumber = event.target.classList[0].split('-')[1];//get song number from track
+			//console.log(); 
+			putTrackIntoPlayer(songNumber);
+			player.load();
+			startPlay();
+		});
+	}
+	
+	//console.log(songlist);
+}
