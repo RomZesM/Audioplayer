@@ -1,5 +1,5 @@
 *{
-	border: 1px black solid;
+	border: silver 1px solid;
 }
 
 body {
@@ -16,6 +16,9 @@ body {
 	display: flex;
 	flex-direction: column;
 }
+.song-cover-volume-block{
+	display: flex;
+}
 
 .song-cover{
 	display: flex;
@@ -24,22 +27,43 @@ body {
 	height: 26vh;
 }
 
+.volume-bar{
+	border: 1px solid rosybrown;
+	width: 22px;
+	height: 26vh;
+	margin-right: 20px;
+	display: flex;
+	flex-direction: column-reverse;
+}
+.volume-slider{
+	background-color: aquamarine;
+	height: 75%;
+	width: 22px;
+	pointer-events: none;
+}
+
 .control-block{
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
+	gap: 30px;
+}
+.play-pause-block{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .play-button{
-	width: 32px;
-	height: 32px;
+	width: 64px;
+	height: 64px;
 }
 .play-button-hide{
 	display: none;
 }
 
 .pause-button{
-	width: 32px;
-	height: 32px;
+	width: 64px;
+	height: 64px;
 	display: none;
 }
 .pause-button-visible{
@@ -52,33 +76,34 @@ body {
 	flex-direction: column;
 }
 
-.back-button, .next-button{
-	width: 24px;
-	height: 24px;
-}
-.monitor_volume-block{
+.next-prev-button-block{
 	display: flex;
 	justify-content: space-around;
-}
-.volume-bar{
-	width: 200px;
-	height: 22px;
-}
-.volume-slider{
-	background-color: aquamarine;
-	height: 22px;
-	width: 75%;
 }
 
-.player-monitor{
-	display: flex;
-	justify-content: space-around;
+.back-button, .next-button{
+	width: 36px;
+	height: 36px;
 }
+
+
+.monitor{
+	display: flex;
+	justify-content: space-between;
+}
+.current_track_time{
+	margin-left: 5px;
+}
+.track-duration{
+	margin-right: 5px;
+}
+
+
 
 .tape_counter{
 	width: auto;
 	height: 15px;
-	
+	border: 1px solid rosybrown;
 	position: relative;
 }
 

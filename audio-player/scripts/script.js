@@ -102,7 +102,6 @@ player.addEventListener("loadeddata", (e)=>{
 
 function startPlay(){
 		isPlaying = true;
-		console.log("here", isPlaying);
 		playbutton.classList.add('play-button-hide');
 		pausebutton.classList.add('pause-button-visible');
 		player.play();
@@ -168,13 +167,14 @@ tape_counter.addEventListener('click', (event)=> {
 //volume regulator
 volume_bar.addEventListener('click', (event)=>{
 	console.log(player.volume);
-	let barWidth = (window.getComputedStyle(volume_bar).width);
-	let clickX = event.offsetX;
-	let newVolume = clickX / parseInt(barWidth);
+	let barHeight = (window.getComputedStyle(volume_bar).height);
+	let clickY = parseInt(barHeight) - event.offsetY;
+	
+	let newVolume = clickY / parseInt(barHeight);
 	
 	player.volume = newVolume;
 	//change color depending on current color
-	volume_slider.style.width = newVolume * 100 + '%';
+	volume_slider.style.height = newVolume * 100 + '%';
 	
 	console.log(player.volume);
 });
@@ -205,3 +205,4 @@ function playlistInit(){
 	
 	//console.log(songlist);
 }
+
