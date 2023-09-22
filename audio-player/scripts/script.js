@@ -175,7 +175,7 @@ function showTitle(trackNumber){
 
 
 function moveProgressMarker(){
-	let barWidth = tape_counter.offsetWidth - 19
+	let barWidth = tape_counter.offsetWidth - 27
 	const marker = document.querySelector(".marker");
 	//count time between frames (depend on 'timeupdate' event)
 	let stepInPercent = (player.currentTime - lastframe) * 100 / player.duration;
