@@ -41,7 +41,7 @@ body {
 .player{
 	
 	width: 450px;
-	height: 700px;
+	height: 780px;
 	display: flex;
 	flex-direction: column;
 	border-radius: 20px;
