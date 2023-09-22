@@ -41,7 +41,7 @@ body {
 .player{
 	
 	width: 450px;
-	height: 780px;
+	height: 750px;
 	display: flex;
 	flex-direction: column;
 	border-radius: 20px;
@@ -263,7 +263,7 @@ body {
 
 .playlist::-webkit-scrollbar{
 		background-color: #9A3B3B;
-		width: 28px;
+		width: 18px;
 		height: 18px;
 		border: 1px solid black;
 		border-radius: 20px;
@@ -279,8 +279,8 @@ body {
 }
 .playlist::-webkit-scrollbar-button  {
 		background-color: #E2C799;
-		width:18px;
-		height: 28px;
+		width: 18px;
+		height: 18px;
 		border: 1px solid black;
 		border-radius: 33px;
 
