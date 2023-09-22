@@ -112,7 +112,7 @@ function startPlay(){
 		playbutton.classList.add('play-button-hide');
 		pausebutton.classList.add('pause-button-visible');
 		
-		clickPlaylist()//!del
+		clickPlaylist()
 		player.play();
 		
 }
@@ -146,7 +146,7 @@ function showCover(trackNumber){
 	//background-image: url(/assets/img/01-prekrasnoe.jpg);
 
 	//console.log(`url(/${covers[trackNumber].split("\"")[1]})`);
-	document.body.style.backgroundImage = `url(/${covers[trackNumber].split("\"")[1]})`
+	document.body.style.backgroundImage = `url(${covers[trackNumber].split("\"")[1]})`
 	
 	songcover.innerHTML = covers[trackNumber];
 	
