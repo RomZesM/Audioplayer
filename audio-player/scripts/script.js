@@ -91,13 +91,13 @@ player.addEventListener("timeupdate", (e)=>{
 	moveProgressMarker();
 })
 //reload track data when we have new track
-player.addEventListener("loadstart", (e)=>{ //Fired when the browser has started to load the resource.
+// player.addEventListener("loadstart", (e)=>{ //Fired when the browser has started to load the resource.
 	
-	if(isPlaying){
-		startPlay();
-	}
+// 	if(isPlaying){
+// 		startPlay();
+// 	}
 	
-});
+// });
  //	The first frame of the media has finished loading.
 player.addEventListener("loadeddata", (e)=>{
 	currentTrackStep = player.duration * 4; 
@@ -111,7 +111,10 @@ function startPlay(){
 		isPlaying = true;
 		playbutton.classList.add('play-button-hide');
 		pausebutton.classList.add('pause-button-visible');
+		
+		clickPlaylist()//!del
 		player.play();
+		
 }
 function pausePlay(){
 		isPlaying = false;
@@ -155,7 +158,7 @@ function showTitle(trackNumber){
 	
 	let artistAndTitle = songsTitle[trackNumber].split("=");
 	artistName.innerHTML = artistAndTitle[0];
-	if(artistAndTitle[0].length > 20){
+	if(artistAndTitle[0].length > 16){
 		artistName.classList.add("text-animated");
 	}	
 	else{
@@ -163,7 +166,7 @@ function showTitle(trackNumber){
 	}
 	songTitle.innerHTML = artistAndTitle[1];
 	console.log("leng", artistAndTitle[1].length, "title", artistAndTitle);
-	if(artistAndTitle[1].length > 20){
+	if(artistAndTitle[1].length > 16){
 		songTitle.classList.add("text-animated");
 	}	
 	else{
@@ -214,10 +217,9 @@ function playlistInit(){
 	let generatedList = '';
 	for (let i = 0; i < songsTitle.length; i++) {
 		const element = songsTitle[i].split('=')
+		let li = '';
 		let songName = element[0] + ' - ' + element[1];
-		
-		let li = `<li class="song-${i}">${songName}</li>`
-		
+		li = `<li class="song-${i}">${songName}</li>`
 		generatedList = generatedList.concat(' ', li);
 	}
 	playlist.innerHTML = generatedList;
@@ -226,14 +228,38 @@ function playlistInit(){
 	for (let i = 0; i < songlist.length; i++) {
 		const element = songlist[i];
 		element.addEventListener("click", (event)=>{
+			
+			
+			//event.target.classList.add("selected-song")//mark selected song
+			//markSongsInPlaylist(event.target);
 			let songNumber = event.target.classList[0].split('-')[1];//get song number from track
-			//console.log(); 
+			currentTrackNumber = songNumber;
 			putTrackIntoPlayer(songNumber);
 			player.load();
 			startPlay();
 		});
 	}
 	
-	//console.log(songlist);
+
+
 }
 
+function markSongsInPlaylist(currentSong){
+	console.log(currentTrackNumber);
+	const songlist = playlist.querySelectorAll('li')
+	songlist.forEach(element => {
+		element.classList.remove("selected-song");
+	});
+	currentSong.classList.add("selected-song");
+}
+
+function clickPlaylist(){
+	const songlist = playlist.querySelectorAll('li')
+	markSongsInPlaylist(songlist[currentTrackNumber]);
+}
+
+	//event listener for song ending, play next
+player.addEventListener("ended", (event)=>{
+	console.log("song end");
+	nextButton.click();
+})

@@ -1,4 +1,6 @@
-
+* {
+	font-family: 'Roboto Slab', serif;
+}
 
 body {
 	display: flex;
@@ -89,6 +91,14 @@ body {
 	
 	pointer-events: none;
 }
+.artist{
+	font-weight: 600;
+	margin-bottom: 5px;
+	
+}
+.title{
+	margin-top: 5px;
+}
 
 .control-block{
 	display: flex;
@@ -145,13 +155,14 @@ body {
 	white-space: nowrap;
 	transform: translateX(100%);
 	animation: my-animation 15s linear infinite;
+
 }
 
 @keyframes my-animation {
 	from {
 	  -moz-transform: translateX(100%);
 	  -webkit-transform: translateX(100%);
-	  transform: translateX(100%);
+	  transform: translateX(50%);
 	}
 	to {
 	  -moz-transform: translateX(-100%);
@@ -225,16 +236,30 @@ body {
 	background-color: #F2ECBE;
 	border-radius: 20px;
 	cursor: pointer;
-	height: 85px;
-	overflow-y: scroll;
+	height: 100px;
+	overflow-y: auto;
 	margin-left: 20px;
 	margin-right: 20px;
-
-	overflow-y: auto;
-	overflow-x: auto;
+	list-style-type: decimal;
 	position: relative;
 }
+.playlist li{
+	border-radius: 10px;
+	padding-left: 5px;
+	white-space: nowrap;
+	font-size: 17px;	
+	
+}
 
+.playlist li:hover{
+	background-color: #9A3B3B;
+	color: #F2ECBE;
+}
+
+.selected-song{
+	background-color: #9A3B3B;
+	color: #F2ECBE;
+}
 
 .playlist::-webkit-scrollbar{
 		background-color: #9A3B3B;
