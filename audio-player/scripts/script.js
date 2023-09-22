@@ -20,10 +20,10 @@ let currentTrackStep = 0;
 let lastframe = 0;
 
 //res
-const tracklist = ["<source src=\"/assets/audio/01-prekrasnoe-daleko.ogg\" type=\"audio/ogg\">",
-				"<source src=\"/assets/audio/02-v-poslednuu-osen.ogg\" type=\"audio/ogg\">",
-				"<source src=\"/assets/audio/03-vera.ogg\" type=\"audio/ogg\">",
-				"<source src=\"/assets/audio/04-vechno-molodoy.ogg\" type=\"audio/ogg\">"]
+const tracklist = ["<source src=\"assets/audio/01-prekrasnoe-daleko.ogg\" type=\"audio/ogg\">",
+				"<source src=\"assets/audio/02-v-poslednuu-osen.ogg\" type=\"audio/ogg\">",
+				"<source src=\"assets/audio/03-vera.ogg\" type=\"audio/ogg\">",
+				"<source src=\"assets/audio/04-vechno-molodoy.ogg\" type=\"audio/ogg\">"]
 
 const covers = ["<img src=\"assets/img/01-prekrasnoe.jpg\" alt=\"image for song\">",
 				"<img src=\"assets/img/02-osen.jpg\" alt=\"image for song\">",
@@ -165,7 +165,7 @@ function showTitle(trackNumber){
 		artistName.classList.remove("text-animated");
 	}
 	songTitle.innerHTML = artistAndTitle[1];
-	console.log("leng", artistAndTitle[1].length, "title", artistAndTitle);
+	//console.log("leng", artistAndTitle[1].length, "title", artistAndTitle);
 	if(artistAndTitle[1].length > 16){
 		songTitle.classList.add("text-animated");
 	}	
@@ -199,7 +199,7 @@ tape_counter.addEventListener('click', (event)=> {
 
 //volume regulator
 volume_bar.addEventListener('click', (event)=>{
-	console.log(player.volume);
+	//console.log(player.volume);
 	let barHeight = (window.getComputedStyle(volume_bar).height);
 	let clickY = parseInt(barHeight) - event.offsetY;
 	
@@ -209,7 +209,7 @@ volume_bar.addEventListener('click', (event)=>{
 	//change color depending on current color
 	volume_slider.style.height = newVolume * 100 + '%';
 	
-	console.log(player.volume);
+	//console.log(player.volume);
 });
 
 //choose track from playlist
@@ -245,7 +245,7 @@ function playlistInit(){
 }
 
 function markSongsInPlaylist(currentSong){
-	console.log(currentTrackNumber);
+	//console.log(currentTrackNumber);
 	const songlist = playlist.querySelectorAll('li')
 	songlist.forEach(element => {
 		element.classList.remove("selected-song");
@@ -260,6 +260,6 @@ function clickPlaylist(){
 
 	//event listener for song ending, play next
 player.addEventListener("ended", (event)=>{
-	console.log("song end");
+	//console.log("song end");
 	nextButton.click();
 })
