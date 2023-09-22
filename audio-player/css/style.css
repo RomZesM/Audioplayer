@@ -236,10 +236,10 @@ body {
 	background-color: #F2ECBE;
 	border-radius: 20px;
 	cursor: pointer;
-	height: 100px;
+	height: 130px;
 	overflow-y: auto;
 	margin-left: 20px;
-	margin-right: 20px;
+	margin-right: 30px;
 	list-style-type: decimal;
 	position: relative;
 }
