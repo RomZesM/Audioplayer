@@ -264,7 +264,7 @@ body {
 .playlist::-webkit-scrollbar{
 		background-color: #9A3B3B;
 		width: 28px;
-		height: 10px;
+		height: 18px;
 		border: 1px solid black;
 		border-radius: 20px;
 		
@@ -279,9 +279,27 @@ body {
 }
 .playlist::-webkit-scrollbar-button  {
 		background-color: #E2C799;
-		width: 6px;
+		width:18px;
 		height: 28px;
 		border: 1px solid black;
 		border-radius: 33px;
 
+}
+.footer{
+	display: flex;
+	justify-content: space-around;
+}
+
+
+.logo svg{
+	height: 26px;
+	width: 50px;
+	
+	
+}
+
+.git svg{
+	height: 26px;
+	width: 30px;
+	
 }
