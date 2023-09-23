@@ -41,7 +41,7 @@ body {
 .player{
 	
 	width: 450px;
-	height: 750px;
+	height: 620px;
 	display: flex;
 	flex-direction: column;
 	border-radius: 20px;
@@ -51,17 +51,18 @@ body {
 }
 .song-cover-volume-block{
 	display: flex;
+	justify-content: space-between;
 }
 
 .song-cover{
 	display: flex;
 	justify-content: center;
-	width: 345px;
-	height: 26vh;
+	width: 50%;
+	height: 90%;
 	overflow: hidden;
 	border-radius: 20px;
 	border: black 2px solid;
-	margin-left: 20px;
+	
 	margin-top: 20px;
 }
 
@@ -77,11 +78,12 @@ body {
 	cursor: pointer;
 	width: 22px;
 	height: 26vh;
-	margin: auto;
+	
 	display: flex;
 	flex-direction: column-reverse;
 	margin-top: 20px;
 	background-color: #9A3B3B;
+	margin-left: 20px;
 }
 .volume-slider{
 	border-radius: 20px;
@@ -90,6 +92,20 @@ body {
 	width: 22px;
 	
 	pointer-events: none;
+}
+.speakers{
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+	margin-right: 20px;
+	border-radius: 20px;
+	border: 2px solid #C08261;
+}
+
+.speaker-01, .speaker-02{
+	width: 100px;
+	height: 100px;
+	
 }
 .artist{
 	font-weight: 600;
@@ -288,10 +304,11 @@ body {
 .footer{
 	display: flex;
 	justify-content: space-around;
+	color: #C08261;
 }
 
 
-.logo svg{
+.logo img{
 	height: 26px;
 	width: 50px;
 	
@@ -302,4 +319,8 @@ body {
 	height: 26px;
 	width: 30px;
 	
+}
+
+.filter_add{
+	filter: invert(52%) sepia(62%) saturate(306%) hue-rotate(336deg) brightness(94%) contrast(92%);
 }
