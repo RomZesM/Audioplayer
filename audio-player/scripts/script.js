@@ -89,6 +89,8 @@ player.addEventListener("timeupdate", (e)=>{
 	document.querySelector(".track-duration").innerHTML = getCurrentTimeOfSong(player.duration);
 	
 	moveProgressMarker();
+	animateSpeakers();
+
 })
 //reload track data when we have new track
 // player.addEventListener("loadstart", (e)=>{ //Fired when the browser has started to load the resource.
@@ -111,7 +113,7 @@ function startPlay(){
 		isPlaying = true;
 		playbutton.classList.add('play-button-hide');
 		pausebutton.classList.add('pause-button-visible');
-		
+		initAudioContext();//init analiz of musuc for beat
 		clickPlaylist()
 		player.play();
 		
@@ -158,7 +160,7 @@ function showTitle(trackNumber){
 	
 	let artistAndTitle = songsTitle[trackNumber].split("=");
 	artistName.innerHTML = artistAndTitle[0];
-	if(artistAndTitle[0].length > 16){
+	if(artistAndTitle[0].length > 25){
 		artistName.classList.add("text-animated");
 	}	
 	else{
@@ -166,7 +168,7 @@ function showTitle(trackNumber){
 	}
 	songTitle.innerHTML = artistAndTitle[1];
 	//console.log("leng", artistAndTitle[1].length, "title", artistAndTitle);
-	if(artistAndTitle[1].length > 16){
+	if(artistAndTitle[1].length > 25){
 		songTitle.classList.add("text-animated");
 	}	
 	else{
@@ -178,7 +180,7 @@ function showTitle(trackNumber){
 
 
 function moveProgressMarker(){
-	let barWidth = tape_counter.offsetWidth - 27
+	let barWidth = tape_counter.offsetWidth - 22
 	const marker = document.querySelector(".marker");
 	//count time between frames (depend on 'timeupdate' event)
 	let stepInPercent = (player.currentTime - lastframe) * 100 / player.duration;
@@ -210,6 +212,7 @@ volume_bar.addEventListener('click', (event)=>{
 	volume_slider.style.height = newVolume * 100 + '%';
 	
 	//console.log(player.volume);
+
 });
 
 //choose track from playlist
@@ -262,4 +265,86 @@ function clickPlaylist(){
 player.addEventListener("ended", (event)=>{
 	//console.log("song end");
 	nextButton.click();
+})
+
+
+
+
+
+//test create music analizer
+let dataArray = new Array()
+let analyser = null;
+let audioSource = null
+
+function initAudioContext(){
+	const audioCtx = new window.AudioContext;
+	if(audioSource === null){
+		audioSource = audioCtx.createMediaElementSource(player);
+		analyser = audioCtx.createAnalyser();
+		audioSource.connect(analyser);
+		analyser.connect(audioCtx.destination);
+			//get info from analizer
+		analyser.fftSize = 128;
+		const bufferLength = analyser.frequencyBinCount;
+		dataArray = new Uint8Array(bufferLength);
+	}
+	
+}
+
+
+
+let c01 = 0;
+let c02 = 1;
+let c03 = 2;
+let c04 = 3;
+let c05 = 4;
+
+
+function touchStarted() {
+	getAudioContext().resume();
+  }
+
+  const speaker1 = document.querySelector(".speaker-01");
+  const speaker2 = document.querySelector(".speaker-02");
+  const speaker3 = document.querySelector(".speaker-03");
+  const speaker4 = document.querySelector(".speaker-04");
+  const speaker5 = document.querySelector(".speaker-05");
+
+  function animateSpeakers(){
+	analyser.getByteFrequencyData(dataArray);
+	
+	let sum = 0;
+	dataArray.forEach(element => {
+		sum += element;
+	});	
+	
+	speaker1.style.transform = `scale(1.0${dataArray[11]})`
+	speaker2.style.transform = `scale(1.0${dataArray[12]})`
+	speaker3.style.transform = `scale(1.0${dataArray[13]})`
+	speaker4.style.transform = `scale(1.0${dataArray[14]})`
+	speaker5.style.transform = `scale(1.0${dataArray[11]})`
+	setTimeout(() => {
+		 speaker1.style.transform = `scale(1.0${dataArray[11]/2})`
+		 speaker2.style.transform = `scale(1.0${dataArray[12]/2})`
+		 speaker3.style.transform = `scale(1.0${dataArray[13]/2})`
+		 speaker4.style.transform = `scale(1.0${dataArray[14]/2})`
+		 speaker5.style.transform = `scale(1.0${dataArray[11]/2})`
+		}, 20)
+
+	
+	//console.log(dataArray);
+  }
+  
+  speaker2.addEventListener("click", (e)=>{
+		c01++;
+		c02++;
+		c03++;
+		c04++;
+		c05++;
+		console.log(c01, c02, c03);
+  })
+
+  speaker3.addEventListener("click", (e)=>{
+	console.log("in");
+	initAudioContext();
 })
