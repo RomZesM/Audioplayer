@@ -251,6 +251,16 @@ body {
 	margin-top: 25px;
 }
 
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	  -webkit-user-select: none; /* Safari */
+	   -khtml-user-select: none; /* Konqueror HTML */
+		 -moz-user-select: none; /* Old versions of Firefox */
+		  -ms-user-select: none; /* Internet Explorer/Edge */
+			  user-select: none; /* Non-prefixed version, currently
+									supported by Chrome, Edge, Opera and Firefox */
+  }
+
 .marker{
 	width: 22px;
 	height: 22px;
@@ -258,6 +268,8 @@ body {
 	position: relative;
 	border-radius: 20px;
 	
+	/*pointer-events: none*/;
+	cursor: pointer;
 }
 
 .playlist{

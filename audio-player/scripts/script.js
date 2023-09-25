@@ -5,6 +5,7 @@ const pausebutton = document.querySelector('.pause-button');
 const previousButton = document.querySelector(".back-button");
 const nextButton = document.querySelector(".next-button");
 const tape_counter = document.querySelector(".tape_counter");
+const tapeMarker = document.querySelector(".marker");
 const volume_bar = document.querySelector('.volume-bar');
 const volume_slider = document.querySelector('.volume-slider');
 const playlist = document.querySelector('.playlist');
@@ -13,6 +14,8 @@ const songcover = document.querySelector(".song-cover");
 
 player.volume = 0.75;
 let isPlaying = false;
+let wasMarkerDragged = false;
+let isDown = false;
 let currentTrackNumber = 0;
 
 let currentMarkerPosition = 0;
@@ -90,6 +93,8 @@ player.addEventListener("timeupdate", (e)=>{
 	
 	moveProgressMarker();
 	animateSpeakers();
+	
+	
 
 })
 //reload track data when we have new track
@@ -180,24 +185,110 @@ function showTitle(trackNumber){
 
 
 function moveProgressMarker(){
-	let barWidth = tape_counter.offsetWidth - 22
-	const marker = document.querySelector(".marker");
-	//count time between frames (depend on 'timeupdate' event)
-	let stepInPercent = (player.currentTime - lastframe) * 100 / player.duration;
-	lastframe = player.currentTime;
+	if(!isDown){
+		let barWidth = tape_counter.offsetWidth - 22
+		const marker = document.querySelector(".marker");
+		//count time between frames (depend on 'timeupdate' event)
+		let stepInPercent = (player.currentTime - lastframe) * 100 / player.duration;
+		lastframe = player.currentTime;
 
-	currentMarkerPosition += barWidth * stepInPercent / 100;
+		currentMarkerPosition += barWidth * stepInPercent / 100;
 
-	marker.style.left = currentMarkerPosition + "px";
+		marker.style.left = currentMarkerPosition + "px";
+	}
+	
 };
 //skip around track
 tape_counter.addEventListener('click', (event)=> {
-	let barWidth = (window.getComputedStyle(tape_counter).width);
-	let clickX = event.offsetX; //get cirrent click coordinate
-	let timeToSeek = clickX / parseInt(barWidth) * player.duration; 
-	player.currentTime = timeToSeek;
+	
+	console.log("skip track, was marker drag", wasMarkerDragged);
+	//let barWidth = (window.getComputedStyle(tape_counter).width);
+	if(!wasMarkerDragged){
+		skipTrackAccortingMarker(event.offsetX);
+		isDown = false;
+	}
+	 //get current click coordinate
+	//let timeToSeek = clickX / parseInt(barWidth) * player.duration; 
+	//player.currentTime = timeToSeek;
 	
 })
+
+function skipTrackAccortingMarker(point){
+	console.log("skip_accord", point);
+	isDown = false;
+	let barWidth = (window.getComputedStyle(tape_counter).width);
+	let timeToSeek = point / parseInt(barWidth) * player.duration; 
+	player.currentTime = timeToSeek;
+	
+	setTimeout(()=>{
+		wasMarkerDragged = false;
+	},20)
+}
+
+
+
+
+
+
+let mousePositionX = 0;
+
+
+// tape_counter.addEventListener("mousemove", (event)=>{
+// 	mousePositionX = event.offsetX;
+// 	console.log(mousePositionX, event.clientX);
+		
+// 	//console.log(mousePositionX, "mouseposition");
+// 	//	tapeMarker.style.left = (mousePositionX-10) + 'px';
+// 		//skipTrackAccortingMarker(mousePositionX);
+// 	// if(isDown){
+// 	// }
+// 	if(event.target.closest('.tape_counter')){
+// 		console.log("hz", event.offsetX);
+// 	}
+// 	if(!event.target.closest('.marker')){
+// 		console.log("mar", event.offsetX);
+// 		tapeMarker.style.left = (mousePositionX-10) + 'px';
+// 	}
+// }, true);
+
+
+tapeMarker.addEventListener("mousedown", (event)=>{
+	console.log("dd");
+	isDown = true;
+	wasMarkerDragged = true;
+    // offset = tapeMarker.offsetLeft - event.clientX;
+	// console.log(offset, tapeMarker.offsetLeft, event.clientX);
+	
+
+}, true);
+
+//drag marker
+tapeMarker.addEventListener("mousemove", function (e) {
+    let bounds = tape_counter.getBoundingClientRect(); //get bounds of parent element
+    let x = e.clientX - bounds.left; //calculate mouse position according to parent element
+	if(isDown){
+		mousePositionX = x;
+		tapeMarker.style.left = (x-10) + 'px';
+		
+   		 console.log("test",x);
+	}
+	
+});
+
+tapeMarker.addEventListener("mouseup", (event)=>{
+	
+	isDown = false;
+	skipTrackAccortingMarker(mousePositionX);
+	console.log("uu", isDown, mousePositionX);
+}, true);
+
+
+tape_counter.addEventListener('mouseout', (event)=>{
+	isDown = false;
+	wasMarkerDragged = false;
+})
+
+
 
 //volume regulator
 volume_bar.addEventListener('click', (event)=>{
@@ -348,3 +439,4 @@ function touchStarted() {
 	console.log("in");
 	initAudioContext();
 })
+
