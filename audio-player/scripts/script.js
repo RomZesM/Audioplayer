@@ -15,7 +15,8 @@ const songcover = document.querySelector(".song-cover");
 player.volume = 0.75;
 let isPlaying = false;
 let wasMarkerDragged = false;
-let isDown = false;
+let isDown = false; //check if we drag a marker
+let mousePositionX = 0; //save last position of warker before we release the button
 let currentTrackNumber = 0;
 
 let currentMarkerPosition = 0;
@@ -93,19 +94,8 @@ player.addEventListener("timeupdate", (e)=>{
 	
 	moveProgressMarker();
 	animateSpeakers();
-	
-	
+});
 
-})
-//reload track data when we have new track
-// player.addEventListener("loadstart", (e)=>{ //Fired when the browser has started to load the resource.
-	
-// 	if(isPlaying){
-// 		startPlay();
-// 	}
-	
-// });
- //	The first frame of the media has finished loading.
 player.addEventListener("loadeddata", (e)=>{
 	currentTrackStep = player.duration * 4; 
 	currentMarkerPosition = 0;
@@ -185,9 +175,11 @@ function showTitle(trackNumber){
 
 
 function moveProgressMarker(){
-	if(!isDown){
+	
+	if(!isDown){//move it only if we don't drag a marker
 		let barWidth = tape_counter.offsetWidth - 22
 		const marker = document.querySelector(".marker");
+
 		//count time between frames (depend on 'timeupdate' event)
 		let stepInPercent = (player.currentTime - lastframe) * 100 / player.duration;
 		lastframe = player.currentTime;
@@ -201,15 +193,12 @@ function moveProgressMarker(){
 //skip around track
 tape_counter.addEventListener('click', (event)=> {
 	
-	console.log("skip track, was marker drag", wasMarkerDragged);
-	//let barWidth = (window.getComputedStyle(tape_counter).width);
-	if(!wasMarkerDragged){
+	
+	if(!wasMarkerDragged){ //prevent skip track if we click on tome tracker while dragging
 		skipTrackAccortingMarker(event.offsetX);
 		isDown = false;
 	}
-	 //get current click coordinate
-	//let timeToSeek = clickX / parseInt(barWidth) * player.duration; 
-	//player.currentTime = timeToSeek;
+
 	
 })
 
@@ -220,7 +209,7 @@ function skipTrackAccortingMarker(point){
 	let timeToSeek = point / parseInt(barWidth) * player.duration; 
 	player.currentTime = timeToSeek;
 	
-	setTimeout(()=>{
+	setTimeout(()=>{//need little timeout, to return our "seek_by_click" functionality
 		wasMarkerDragged = false;
 	},20)
 }
@@ -228,75 +217,47 @@ function skipTrackAccortingMarker(point){
 
 
 
-
-
-let mousePositionX = 0;
-
-
-// tape_counter.addEventListener("mousemove", (event)=>{
-// 	mousePositionX = event.offsetX;
-// 	console.log(mousePositionX, event.clientX);
-		
-// 	//console.log(mousePositionX, "mouseposition");
-// 	//	tapeMarker.style.left = (mousePositionX-10) + 'px';
-// 		//skipTrackAccortingMarker(mousePositionX);
-// 	// if(isDown){
-// 	// }
-// 	if(event.target.closest('.tape_counter')){
-// 		console.log("hz", event.offsetX);
-// 	}
-// 	if(!event.target.closest('.marker')){
-// 		console.log("mar", event.offsetX);
-// 		tapeMarker.style.left = (mousePositionX-10) + 'px';
-// 	}
-// }, true);
-
-
 tapeMarker.addEventListener("mousedown", (event)=>{
 	isDown = true;
-	wasMarkerDragged = true;
+	wasMarkerDragged = true;//need to prevent skipping song after click into tapecounter
  }, true);
 
 //drag marker
 tapeMarker.addEventListener("mousemove", function (e) {
     let bounds = tape_counter.getBoundingClientRect(); //get bounds of parent element
     let x = e.clientX - bounds.left; //calculate mouse position according to parent element
-	if(x > 400){
+	
+	if(x > 400){//boundries correction
 		x = 385;		
 	}
 	if( x < 0){
 		x = 10;
 	}
 		
-	if(isDown){
+	if(isDown){//change position of marker while dragging marker
 		mousePositionX = x;
 		tapeMarker.style.left = (x-10) + 'px';		
-   		console.log("test",x);
+   		
 	}
 	
 });
 
 tapeMarker.addEventListener("mouseup", (event)=>{
 	
-	isDown = false;
-	skipTrackAccortingMarker(mousePositionX);
-	console.log("uu", isDown, mousePositionX);
-}, true);
+	isDown = false; //flag that we dont drag anymore
+	skipTrackAccortingMarker(mousePositionX); //skip to last marker position
+	}, true);
 
-
+//try to check when we leave dragging zone
 tape_counter.addEventListener('mouseout', (event)=>{
 	isDown = false;
 	wasMarkerDragged = false;
 })
 
-document.body.addEventListener("mouseup", (event)=>{
-	console.log(window.getSelection())
-});
-
 
 //volume regulator
 volume_bar.addEventListener('click', (event)=>{
-	//console.log(player.volume);
+	
 	let barHeight = (window.getComputedStyle(volume_bar).height);
 	let clickY = parseInt(barHeight) - event.offsetY;
 	
@@ -306,7 +267,7 @@ volume_bar.addEventListener('click', (event)=>{
 	//change color depending on current color
 	volume_slider.style.height = newVolume * 100 + '%';
 	
-	//console.log(player.volume);
+	
 
 });
 
@@ -430,17 +391,18 @@ function touchStarted() {
 	//console.log(dataArray);
   }
   
-  speaker2.addEventListener("click", (e)=>{
-		c01++;
-		c02++;
-		c03++;
-		c04++;
-		c05++;
-		console.log(c01, c02, c03);
-  })
+//   speaker2.addEventListener("click", (e)=>{
+// 		c01++;
+// 		c02++;
+// 		c03++;
+// 		c04++;
+// 		c05++;
+// 		console.log(c01, c02, c03);
+//   })
 
   speaker3.addEventListener("click", (e)=>{
 	console.log("in");
 	initAudioContext();
 })
 
+//speaker3.click();
