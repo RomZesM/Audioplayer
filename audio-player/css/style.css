@@ -77,7 +77,7 @@ body {
 	/*border: 2px solid black;*/
 	cursor: pointer;
 	width: 22px;
-	height: 26vh;
+	
 	
 	display: flex;
 	flex-direction: column-reverse;
