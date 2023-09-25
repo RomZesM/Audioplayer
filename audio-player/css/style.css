@@ -41,7 +41,7 @@ body {
 .player{
 	
 	width: 450px;
-	height: 620px;
+	height: 650px;
 	display: flex;
 	flex-direction: column;
 	border-radius: 20px;
@@ -230,9 +230,11 @@ body {
 	justify-content: space-between;
 }
 .current_track_time{
-	margin-left: 40px;
+	margin-top: 10px;
+	margin-left: 65px;
 }
 .track-duration{
+	margin-top: 10px;
 	margin-right: 65px;
 }
 
@@ -251,15 +253,6 @@ body {
 	margin-top: 25px;
 }
 
-.noselect {
-	-webkit-touch-callout: none; /* iOS Safari */
-	  -webkit-user-select: none; /* Safari */
-	   -khtml-user-select: none; /* Konqueror HTML */
-		 -moz-user-select: none; /* Old versions of Firefox */
-		  -ms-user-select: none; /* Internet Explorer/Edge */
-			  user-select: none; /* Non-prefixed version, currently
-									supported by Chrome, Edge, Opera and Firefox */
-  }
 
 .marker{
 	width: 22px;

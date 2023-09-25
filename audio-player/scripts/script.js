@@ -253,24 +253,25 @@ let mousePositionX = 0;
 
 
 tapeMarker.addEventListener("mousedown", (event)=>{
-	console.log("dd");
 	isDown = true;
 	wasMarkerDragged = true;
-    // offset = tapeMarker.offsetLeft - event.clientX;
-	// console.log(offset, tapeMarker.offsetLeft, event.clientX);
-	
-
-}, true);
+ }, true);
 
 //drag marker
 tapeMarker.addEventListener("mousemove", function (e) {
     let bounds = tape_counter.getBoundingClientRect(); //get bounds of parent element
     let x = e.clientX - bounds.left; //calculate mouse position according to parent element
+	if(x > 400){
+		x = 385;		
+	}
+	if( x < 0){
+		x = 10;
+	}
+		
 	if(isDown){
 		mousePositionX = x;
-		tapeMarker.style.left = (x-10) + 'px';
-		
-   		 console.log("test",x);
+		tapeMarker.style.left = (x-10) + 'px';		
+   		console.log("test",x);
 	}
 	
 });
@@ -288,6 +289,9 @@ tape_counter.addEventListener('mouseout', (event)=>{
 	wasMarkerDragged = false;
 })
 
+document.body.addEventListener("mouseup", (event)=>{
+	console.log(window.getSelection())
+});
 
 
 //volume regulator
